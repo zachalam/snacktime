@@ -1,3 +1,6 @@
 node_modules/**/*
 .expo/*
 npm-debug.*
+
+#ignore master config & keys
+config/master.js

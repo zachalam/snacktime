@@ -1,8 +1,25 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button,
   ImageBackground, Linking } from 'react-native';
+  import { AuthSession } from 'expo';
+
+import MasterConfig from './config/master.js';
 
 export default class App extends React.Component {
+
+  getAuthUrl() {
+    console.log("heyyo");
+  }
+
+  _handlePressAsync = async () => {
+    let { authUrl } = MasterConfig;
+    let redirectUrl = AuthSession.getRedirectUrl();
+    let result = await AuthSession.startAsync({ authUrl });
+    console.log("authurl is", authUrl);
+    console.log(result);
+    this.setState({ result });
+  };
+
   render() {
     return (
       <ImageBackground
@@ -18,14 +35,11 @@ export default class App extends React.Component {
       >
 
         <View style = { styles.MainContainer }>
- 
-
 
         <View style={ styles.bottomView} >
 
-
         <Button
-          onPress={()=>{ Linking.openURL(`https://nfl.com`)        }}
+          onPress={this._handlePressAsync}
           title="Login with genomelink.io"
           color="#CC38E7"
           accessibilityLabel="Learn more about this purple button"
