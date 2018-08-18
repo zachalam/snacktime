@@ -14,7 +14,7 @@ export default class App extends React.Component {
           height: '100%',
           justifyContent: 'center',
         }}
-        source={require('./images/lander.png')}
+        source={require('./assets/lander.png')}
       >
 
         <View style = { styles.MainContainer }>
