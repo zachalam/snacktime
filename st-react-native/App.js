@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, Image, Button,
+  ImageBackground, Linking } from 'react-native';
 
 export default class App extends React.Component {
   render() {
@@ -15,22 +16,54 @@ export default class App extends React.Component {
         }}
         source={require('./images/lander.png')}
       >
-      <View>
 
-        <Text style={styles.container}>hello</Text>
-      </View>
+        <View style = { styles.MainContainer }>
+ 
+
+
+        <View style={ styles.bottomView} >
+
+
+        <Button
+          onPress={()=>{ Linking.openURL(`https://nfl.com`)        }}
+          title="Login with genomelink.io"
+          color="#CC38E7"
+          accessibilityLabel="Learn more about this purple button"
+        />
+
+        </View>
+
+        </View>
+
       </ImageBackground>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 90,
-    color: 'white'
-  },
-});
+
+const styles = StyleSheet.create(
+  {
+      MainContainer:
+      {
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+      },
+   
+      bottomView:{
+   
+        width: '100%', 
+        height: 100, 
+        backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0
+      },
+   
+      textStyle:{
+   
+        color: '#fff',
+        fontSize:22
+      }
+  });
