@@ -15,6 +15,7 @@ app.use(session(keys));
 // -------------------------
 
 const authCall = require('./calls/authorize.js')
+const itemCall = require('./calls/item.js')
 
 // welcome message.
 app.get('/', function (req, res) { res.send('snacktime says hi') })
@@ -22,6 +23,8 @@ app.get('/', function (req, res) { res.send('snacktime says hi') })
 // generate random account
 app.get('/authorize', authCall)
 
+// get an item.
+app.get('/item', itemCall)
 
 // payment callback, after payment
 //app.post('/auth', paidFunction)
