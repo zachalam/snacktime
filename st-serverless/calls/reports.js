@@ -25,6 +25,12 @@ async function reports(req,res) {
         });
     }));
 
+    // clean up report results.
+    reports = reports.map((aReport) => {return { 
+        trait: aReport._data.phenotype.url_name,
+        score: aReport._data.summary.score,
+    }});
+
     res.status(200).json({success: true, reports})    
 }
 
