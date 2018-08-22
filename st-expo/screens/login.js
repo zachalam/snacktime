@@ -16,6 +16,15 @@ export default class Login extends React.Component {
     console.log(result);
     if(result.params && result.params.code) {
       console.log("valid code");
+      let { code } = result.params;
+      // get all reports from serverless (middleman)
+      fetch(`${MasterConfig.apiUrl}/reports/${code}`)
+      .then(function(response) { return response.json(); })
+      .then(function(myJson) {
+        console.log("yes");
+        console.log(JSON.stringify(myJson));
+      });
+
     } else {
         console.log("failed");
         setTimeout(() => {
