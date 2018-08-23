@@ -86,7 +86,7 @@ export default class Login extends React.Component {
         <Button
           onPress={this._handlePressAsync}
           title="Login with genomelink.io"
-          color="#CC38E7"
+          color="#b000f7"
           accessibilityLabel="Learn more about this purple button"
         />
 
