@@ -4,12 +4,30 @@ import { StyleSheet, Text, View, Image, Button,
   import { AuthSession } from 'expo';
 
 import MasterConfig from '../config/master.js';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class Login extends React.Component {
+
+  state = {
+    isLoading: false
+  }
+
+  couldNotLogin = () => {
+    // could not login.
+    setTimeout(() => {
+      Alert.alert(
+          'Could not Login',
+          'We were unable to authenticate your account, please try again!'
+      );
+    }, 1000);
+  }
 
   _handlePressAsync = async () => {
     let { authUrl } = MasterConfig;
     let redirectUrl = AuthSession.getRedirectUrl();
+
+    this.setState({isLoading: true})
+
     let result = await AuthSession.startAsync({ authUrl });
     console.log("authurl is", authUrl);
     console.log("result is");
@@ -17,29 +35,37 @@ export default class Login extends React.Component {
     if(result.params && result.params.code) {
       console.log("valid code");
       let { code } = result.params;
-      // get all reports from serverless (middleman)
-      fetch(`${MasterConfig.apiUrl}/reports/${code}`)
-      .then(function(response) { return response.json(); })
-      .then(function(myJson) {
-        console.log("yes");
-        console.log(JSON.stringify(myJson));
-      });
+      try {
+          const response = await fetch(`${MasterConfig.apiUrl}/reports/${code}`);
+          const responseJson = await response.json();
+          // save report data.
+          this.setState({isLoading: false})
+          this.props.saveReportData(responseJson);
+      } catch(error){
+          console.error(error);
+          this.setState({isLoading: false})
+          this.couldNotLogin();
+      }  
 
     } else {
-        console.log("failed");
-        setTimeout(() => {
-            Alert.alert(
-                'Could not Login',
-                'We were unable to authenticate your account, please try again!'
-            );
-        }, 1000);
-
-
+        this.couldNotLogin();
+        // stop loading..
+        this.setState({isLoading: false})
     }
-    this.setState({ result });
   };
 
   render() {
+
+    // show loading screen if authenticating...
+    if(this.state.isLoading) {
+      return (
+      <View style={{ flex: 1 }}>
+        <Spinner visible={this.state.isLoading} textContent={"Get ready to snack..."} textStyle={{color: '#FFF'}} />
+      </View>
+      )
+    }
+
+    // otherwise show login screen
     return (
       <ImageBackground
         style={{
