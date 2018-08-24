@@ -6,7 +6,7 @@ import { StyleSheet, Text, View, Image, Button,
 import MasterConfig from '../config/master.js';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-export default class Login extends React.Component {
+export default class LoginScreen extends React.Component {
 
   state = {
     isLoading: false

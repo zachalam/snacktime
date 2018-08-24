@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, Image, Button,
   import { AuthSession, SecureStore } from 'expo';
 
 import MasterConfig from './config/master.js';
-import LoginScreen from './screens/login.js';
-import SnackScreen from './screens/snacks.js';
+import LoginScreen from './screens/LoginScreen';
+import HomeScreen from './screens/HomeScreen.js';
 
 
 export default class App extends React.Component {
@@ -31,16 +31,24 @@ export default class App extends React.Component {
   saveReportData = (reportData) => {
     // save report data to state and storage.
     SecureStore.setItemAsync('reportData', JSON.stringify(reportData));
-    // get shopping list for this report
-    console.log("reportData");
-    console.log(reportData);
+    // save report data in session
     this.setState({reportData})
+  }
+
+  clearReportData = () => {
+    // delete report data to state and storage.
+    SecureStore.deleteItemAsync('reportData');
+    // delete report data in session
+    this.setState({reportData: null})
   }
 
   render() {
     let { reportData } = this.state;
     if(reportData===null) return (<LoginScreen saveReportData={this.saveReportData} />);
-    else return (<SnackScreen />);
+    else return (<HomeScreen 
+      reportData={this.state.reportData} 
+      clearReportData={this.clearReportData}
+    />);
   }
 
 }
