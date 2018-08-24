@@ -29,19 +29,24 @@ app.use(session({
 // -------------------------
 
 const authCall = require('./calls/authorize.js')
-const itemCall = require('./calls/item.js')
+const snacksCall = require('./calls/snacks.js')
 const reportsCall = require('./calls/reports.js')
+const itemCall = require('./calls/item.js')
 
 // welcome message.
 app.get('/', function (req, res) { res.send('snacktime says hi') })
 
-// generate random account
+// authorize account
 app.get('/authorize', authCall)
 
-// get an item.
-app.get('/item', itemCall)
+// get a list of snacks based on your blood serum levels
+// each of the parameters is a number 0-4.
+app.get('/snacks/:calcium/:iron/:magnesium/:vitamina/:vitamine', snacksCall)
 
-// get reports for account
+// get snack details
+app.get('/item/:asin', itemCall)
+
+// get health reports for account
 app.get('/reports/:token', reportsCall)
 
 // payment callback, after payment

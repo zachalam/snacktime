@@ -7,17 +7,28 @@ var client = amazon.createClient({
     awsTag: keys.AWS_TAG
   });
 
-function item(req,res) {
-    // get amazon item.
+
+async function item(req,res) {
+    // lookup a specific amazon item id.
+    let { asin } = req.params;
+
     client.itemLookup({
         idType: 'ASIN',
-        itemId: 'B01FG0447S',
+        itemId: asin,
         responseGroup: 'ItemAttributes,OfferSummary,Images'
       }).then(function(results) {
-        res.status(200).json({success: true, results})  
+        let result = results[0]
+        const url = (result || {}).DetailPageURL[0];
+        const img = ((result || {}).LargeImage[0] || {}).URL[0];
+        const title = ((result || {}).ItemAttributes[0] || {}).Title[0];
+        const price = (((result || {}).ItemAttributes[0] || {}).ListPrice[0] || {}).FormattedPrice[0];
+        let item = {url,img,title,price}
+
+        res.status(200).json({success: true, item})  
       }).catch(function(err) {
         res.status(404).json({success: false})  
-      });
+      });    
+
       
 }
 
