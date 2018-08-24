@@ -11,7 +11,8 @@ import SnackScreen from './screens/snacks.js';
 export default class App extends React.Component {
 
   state = {
-    reportData: null   // stores genome traits (when logged in).
+    reportData: null,   // stores genome traits (when logged in).
+    shoppingList: ''
   }
 
   componentDidMount() {
@@ -30,6 +31,9 @@ export default class App extends React.Component {
   saveReportData = (reportData) => {
     // save report data to state and storage.
     SecureStore.setItemAsync('reportData', JSON.stringify(reportData));
+    // get shopping list for this report
+    console.log("reportData");
+    console.log(reportData);
     this.setState({reportData})
   }
 
