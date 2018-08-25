@@ -16,47 +16,47 @@ export default class SnackTab extends React.Component {
         )
     }
 
-    renderShoppingList() {
+    renderShoppingList(itemNumber=0) {
         let {shoppingList} = this.props
-        let renderedList = [];
 
-        console.log("shopping list!!!ASGASGASGSAG");
-        console.log(this.props);
-        
-        console.log(this.props.shoppingList);
-        shoppingList.forEach((e,i) => {
-            renderedList.push(
-                <View key={i}>
-                    <Text style={styles.MiniHeader}>{e.item.title}{"\n"}</Text>
-                    <Image
-                        style={{width: 300, height: 300}}
-                        source={{uri: e.item.img}}
-                    />
-                    <Text style={{fontWeight:'bold'}}>Why this snack?</Text>
-                    {this.renderWhySnack(e.type,e.level,e.percent,e.size)}
-                    <Text>{"\n"}</Text>
+        let e = shoppingList[itemNumber]
 
-                    <Button
-                    onPress={(e) => { console.log("t")}}
-                    title={`Buy on Amazon (${e.item.price})`}
-                    color="#ff9500"
-                    accessibilityLabel="Learn more about this purple button"
-                    />
-                    <Text>{"\n"}{"\n"}{"\n"}</Text>
-                </View>
-            )
-        })
-        return renderedList
+        return (
+            <View>
+                <Text style={styles.MiniHeader}>{e.item.title}{"\n"}</Text>
+                <Image
+                    style={{width: 300, height: 300}}
+                    source={{uri: e.item.img}}
+                />
+                <Text style={{fontWeight:'bold'}}>Why is this snack for me?</Text>
+                {this.renderWhySnack(e.type,e.level,e.percent,e.size)}
+                <Text>{"\n"}</Text>
+
+                <Button
+                onPress={(e) => { console.log("t")}}
+                title={`Buy on Amazon (${e.item.price})`}
+                color="#ff9500"
+                accessibilityLabel="Learn more about this purple button"
+                />
+
+                <Button
+                onPress={(e) => { console.log("t")}}
+                title={`Try Another Snack: 1/9`}
+                color="#dddddd"
+                accessibilityLabel="Learn more about this purple button"
+                />
+
+                <Text>{"\n"}{"\n"}{"\n"}</Text>
+            </View>
+        )
+
     }
 
 
     render() {
       if(!this.props.shoppingList) return null;
       return (
-        <View>
-            <Text style={styles.Header}>My Snacks{"\n"}</Text>
-            <Text>The following bars represent a visual comparison of your blood serum level (based on your DNA).</Text>
-            <Text>{"\n"}{"\n"}</Text>            
+        <View>          
             {this.renderShoppingList()}
         </View>
       );
@@ -73,7 +73,7 @@ const styles = StyleSheet.create(
         fontWeight: 'bold'
     },
     MiniHeader: {
-        fontSize: 18,
+        fontSize: 22,
         fontWeight: 'bold',
         color:'#666666'        
     },
