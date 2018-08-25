@@ -38,7 +38,7 @@ export default class NutrtionTab extends React.Component {
       return (
         <View>
 
-            <Text style={styles.Header}>Nutrtion{"\n"}</Text>
+            <Text style={styles.Header}>Nutrition{"\n"}</Text>
             <Text>The following bars represent a visual comparison of your blood serum level (based on your DNA).</Text>
             <Text>{"\n"}{"\n"}</Text>
             {this.renderNutritionBar('Calcium',this.getTraitScore('calcium'))}

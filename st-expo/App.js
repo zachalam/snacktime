@@ -17,29 +17,35 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // load previously logged in data.
-    SecureStore.getItemAsync('reportData')
-               .then((reportData) => {
-                // async loaded report data.
-                console.log("got report Data");
-                console.log(reportData);
-                // parse json report and store in state..
-                reportData = JSON.parse(reportData);
-                this.setState({reportData})
-               })
+    SecureStore.getItemAsync('reportData').then((data) => { this.setState({reportData: JSON.parse(data)}) })
+    SecureStore.getItemAsync('shoppingList').then((data) => { this.setState({shoppingList: JSON.parse(data)}) })
   }
 
-  saveReportData = (reportData) => {
-    // save report data to state and storage.
+  fetchShoppingList = async () => {
+    const response = await fetch(`${MasterConfig.apiUrl}/snacks/0/1/2/3/4`);
+    const responseJson = await response.json();
+    const { shoppingList } = responseJson;
+    console.log('shopping list is what???!?!?!?!')
+    console.log(shoppingList);
+    return shoppingList;
+  }
+
+  saveReportData = async (reportData) => {
+    // get shopping list (for snacks).
+    let shoppingList = await this.fetchShoppingList();
+    // save reportData and shoppingList to state and storage.
     SecureStore.setItemAsync('reportData', JSON.stringify(reportData));
+    SecureStore.setItemAsync('shoppingList', JSON.stringify(shoppingList));
     // save report data in session
-    this.setState({reportData})
+    this.setState({reportData,shoppingList})
   }
 
   clearReportData = () => {
     // delete report data to state and storage.
     SecureStore.deleteItemAsync('reportData');
+    SecureStore.deleteItemAsync('shoppingList');
     // delete report data in session
-    this.setState({reportData: null})
+    this.setState({reportData: null, shoppingList: ''})
   }
 
   render() {
@@ -47,6 +53,7 @@ export default class App extends React.Component {
     if(reportData===null) return (<LoginScreen saveReportData={this.saveReportData} />);
     else return (<HomeScreen 
       reportData={this.state.reportData} 
+      shoppingList={this.state.shoppingList}
       clearReportData={this.clearReportData}
     />);
   }
