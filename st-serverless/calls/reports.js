@@ -1,8 +1,7 @@
 const genomeLink = require('genomelink-node');
 const keys = require('../config/keys');
+const scope = keys.GENOMELINK_SCOPE;
 
-console.log("keys are ");
-console.log(keys);
 
 async function reports(req,res) {
     // get reports for oauth token.
@@ -14,7 +13,6 @@ async function reports(req,res) {
         requestUrl: `https://genomelink.io?code=${token}` 
     });
 
-    let scope = 'report:iron report:magnesium report:calcium report:vitamin-e report:vitamin-a';
 
     let scopes = scope.split(" ");
     let reports = await Promise.all(scopes.map( async (name) => {
