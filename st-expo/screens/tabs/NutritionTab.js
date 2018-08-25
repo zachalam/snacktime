@@ -27,14 +27,14 @@ export default class NutrtionTab extends React.Component {
 
     getTraitScore(theTrait='calcium') {
         let { reportData } = this.props
-        let { reports } = reportData
-        if(reports) return (reports.find(e=>e.trait===theTrait) || {}).score
+        console.log("rd is");
+        console.log(reportData);
+        if(reportData) return (reportData.find(e=>e.trait===theTrait) || {}).score
         return 0
     }
 
     render() {
       let { reportData } = this.props
-      let { reports } = reportData
       return (
         <View>
 

@@ -38,9 +38,10 @@ export default class LoginScreen extends React.Component {
       try {
           const response = await fetch(`${MasterConfig.apiUrl}/reports/${code}`);
           const responseJson = await response.json();
+          const { reports } = responseJson;
           // save report data.
           this.setState({isLoading: false})
-          this.props.saveReportData(responseJson);
+          this.props.saveReportData(reports);
       } catch(error){
           console.error(error);
           this.setState({isLoading: false})
