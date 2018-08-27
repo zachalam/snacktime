@@ -11,8 +11,8 @@ const styles = StyleSheet.create(
     ScrollView: 
     {
         paddingTop:50,
-        paddingLeft:30,
-        paddingRight:30,
+        paddingLeft:25,
+        paddingRight:25,
         paddingBottom:200
     },
 
@@ -22,8 +22,12 @@ const styles = StyleSheet.create(
         alignItems: 'center',
     },
 
+    GrayBg: {
+        backgroundColor: '#eeeeee',
+        padding:25
+    },
+
     bottomView:{
-    
         width: '100%', 
         height: 70, 
         backgroundColor: '#333333',
@@ -42,14 +46,14 @@ const styles = StyleSheet.create(
 
     Header:
     {
-        fontSize: 32,
+        fontSize: 30,
         fontWeight: 'bold',
-        color:'#666666' 
+        color:'#444444' 
     },
     MiniHeader: {
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
-        color:'#666666'        
+        color:'#888888'        
     },
 });
 

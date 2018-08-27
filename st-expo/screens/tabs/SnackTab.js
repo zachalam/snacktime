@@ -34,10 +34,22 @@ export default class SnackTab extends React.Component {
         let {shoppingList} = this.props
 
         let e = shoppingList[itemNumber]
+        let theName = e.name.split(",")[0]
 
         return (
             <View>
-                <Text style={styles.Header}>{e.name}{"\n"}</Text>
+                <Text style={styles.MiniHeader}>How about some?</Text>
+                <Text style={styles.Header}>{theName}{"\n"}</Text>
+
+                <Button
+                onPress={this.setNextItem}
+                title={`Try Another Snack (${itemNumber+1} of ${shoppingList.length})`}
+                color="#006aff"
+                accessibilityLabel="Load another snack."
+                />
+
+                <Text>{"\n"}{"\n"}</Text>
+
                 <Image
                     style={{width: 250, height: 250}}
                     source={{uri: e.img}}
@@ -46,19 +58,14 @@ export default class SnackTab extends React.Component {
                 {this.renderWhySnack()}
                 <Text>{"\n"}</Text>
 
-                <Button
+                 <Button
                 onPress={(e) => { console.log("t")}}
                 title={`Buy on Amazon`}
                 color="#ff9500"
-                accessibilityLabel="Learn more about this purple button"
+                accessibilityLabel="Load amazon shopping."
                 />
 
-                <Button
-                onPress={this.setNextItem}
-                title={`Try Another Snack: 1/9`}
-                color="#dddddd"
-                accessibilityLabel="Learn more about this purple button"
-                />
+
 
                 <Text>{"\n"}{"\n"}{"\n"}</Text>
             </View>

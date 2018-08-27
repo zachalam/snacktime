@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity,
     ImageBackground, Alert, ScrollView } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import NutritionTab from './tabs/NutritionTab';
 import SnackTab from './tabs/SnackTab';
@@ -34,12 +34,12 @@ export default class HomeScreen extends React.Component {
     }
 
 
-    renderButtonNav(theAction,theText='Logout',theButton='md-close-circle') {
+    renderButtonNav(theAction,theText='Logout',theButton='food-apple') {
         // renders an individual button.
         return (
             <View style={styles.NavBox}>
                 <TouchableOpacity style={styles.NavBox} onPress={theAction}>
-                <Ionicons name={theButton} size={30} color="white" />
+                <MaterialCommunityIcons name={theButton} size={30} color="white" />
                 <Text style={{color:'white'}}>{theText}</Text>
                 </TouchableOpacity>
             </View>
@@ -69,10 +69,10 @@ export default class HomeScreen extends React.Component {
             </ScrollView>
 
             <View style={styles.bottomView}>
-                {this.renderButtonNav(this.snacks,'My Snacks','md-barcode')}
-                {this.renderButtonNav(this.nutrition,'Nutrition','md-analytics')}
-                {this.renderButtonNav(this.about,'About','md-contact')}    
-                {this.renderButtonNav(this.logout,'Logout','md-close-circle')}
+                {this.renderButtonNav(this.snacks,'My Snacks','food-apple')}
+                {this.renderButtonNav(this.nutrition,'Nutrition','nutrition')}
+                {this.renderButtonNav(this.about,'How It Works','account-card-details')}    
+                {this.renderButtonNav(this.logout,'Logout','layers-off')}
             </View>
         </View>
       );
