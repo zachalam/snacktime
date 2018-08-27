@@ -20,9 +20,9 @@ async function item(req,res) {
         let result = results[0]
         const url = (result || {}).DetailPageURL[0];
         const img = ((result || {}).LargeImage[0] || {}).URL[0];
-        const title = ((result || {}).ItemAttributes[0] || {}).Title[0];
-        const price = (((result || {}).ItemAttributes[0] || {}).ListPrice[0] || {}).FormattedPrice[0];
-        let item = {url,img,title,price}
+        //const title = ((result || {}).ItemAttributes[0] || {}).Title[0];
+        //const price = (((result || {}).ItemAttributes[0] || {}).ListPrice[0] || {}).FormattedPrice[0];
+        let item = {asin, name: '', url,img,group:'', carb: 0, protein: 0, milk: false, nuts: false}
 
         res.status(200).json({success: true, item})  
       }).catch(function(err) {

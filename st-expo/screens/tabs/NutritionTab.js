@@ -35,17 +35,15 @@ export default class NutrtionTab extends React.Component {
 
     render() {
       let { reportData } = this.props
+      console.log(reportData);
+      console.log("rp")
       return (
         <View>
 
             <Text style={styles.Header}>Nutrition{"\n"}</Text>
             <Text>The following bars represent a visual comparison of your blood serum level (based on your DNA).</Text>
             <Text>{"\n"}{"\n"}</Text>
-            {this.renderNutritionBar('Calcium',this.getTraitScore('calcium'))}
-            {this.renderNutritionBar('Iron',this.getTraitScore('iron'))}
-            {this.renderNutritionBar('Magnesium',this.getTraitScore('magnesium'))}
-            {this.renderNutritionBar('Vitamin A',this.getTraitScore('vitamin-a'))}
-            {this.renderNutritionBar('Vitamin E',this.getTraitScore('vitamin-e'))}
+
         </View>
       );
     }

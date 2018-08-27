@@ -5,13 +5,27 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Progress from 'react-native-progress';
 import scores from '../../config/scores'
 
+import styles from '../../assets/css.js'
+
 export default class SnackTab extends React.Component {
 
-    renderWhySnack(nutrient,score=0,percent=50,size=80) {
+    state = {
+        itemNumber: 0
+    }
+
+    setNextItem = () => {
+        // set the new item to view.
+        let {shoppingList} = this.props
+        let maxShoppingListIndex = shoppingList.length;
+        let nextItemNumber = this.state.itemNumber+1
+        if(nextItemNumber===maxShoppingListIndex) nextItemNumber=0
+        this.setState({itemNumber: nextItemNumber})
+    }
+
+    renderWhySnack() {
         return (
             <Text>
-                {scores[score]} of {nutrient}.
-                Each {size} serving of this snack has {percent}% of your daily suggested intake.
+                snack!!!
             </Text>
         )
     }
@@ -23,24 +37,24 @@ export default class SnackTab extends React.Component {
 
         return (
             <View>
-                <Text style={styles.MiniHeader}>{e.item.title}{"\n"}</Text>
+                <Text style={styles.Header}>{e.name}{"\n"}</Text>
                 <Image
-                    style={{width: 300, height: 300}}
-                    source={{uri: e.item.img}}
+                    style={{width: 250, height: 250}}
+                    source={{uri: e.img}}
                 />
                 <Text style={{fontWeight:'bold'}}>Why is this snack for me?</Text>
-                {this.renderWhySnack(e.type,e.level,e.percent,e.size)}
+                {this.renderWhySnack()}
                 <Text>{"\n"}</Text>
 
                 <Button
                 onPress={(e) => { console.log("t")}}
-                title={`Buy on Amazon (${e.item.price})`}
+                title={`Buy on Amazon`}
                 color="#ff9500"
                 accessibilityLabel="Learn more about this purple button"
                 />
 
                 <Button
-                onPress={(e) => { console.log("t")}}
+                onPress={this.setNextItem}
                 title={`Try Another Snack: 1/9`}
                 color="#dddddd"
                 accessibilityLabel="Learn more about this purple button"
@@ -54,59 +68,13 @@ export default class SnackTab extends React.Component {
 
 
     render() {
-      if(!this.props.shoppingList) return null;
-      return (
-        <View>          
-            {this.renderShoppingList()}
-        </View>
-      );
+
+        let {itemNumber} = this.state;
+        return (
+            <View>          
+                {this.renderShoppingList(itemNumber)}
+            </View>
+        );
     }
   
-  }
-
-
-const styles = StyleSheet.create(
-{
-    Header:
-    {
-        fontSize: 36,
-        fontWeight: 'bold'
-    },
-    MiniHeader: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color:'#666666'        
-    },
-    MainContainer:
-    {
-        display: 'flex',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexDirection: 'row'
-    },
-    
-    NavBox: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    bottomView:{
-    
-        width: '100%', 
-        height: 80, 
-        backgroundColor: '#555555',
-        justifyContent: 'center', 
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        flexDirection: 'row'
-    },
-    
-    textStyle:{
-    
-        color: '#fff',
-        fontSize:22
-    }
-});
+}

@@ -7,6 +7,8 @@ import NutritionTab from './tabs/NutritionTab';
 import SnackTab from './tabs/SnackTab';
 import AboutTab from './tabs/AboutTab';
 
+import styles from '../assets/css.js'
+
 export default class HomeScreen extends React.Component {
 
     state = {
@@ -17,6 +19,7 @@ export default class HomeScreen extends React.Component {
     nutrition = () => { this.setState({screen: 'nutrition'}) }
     about = () => { this.setState({screen: 'about'}) }
 
+    // logout action..
     logout = () => {
         Alert.alert(
             'Are you sure?',
@@ -51,74 +54,29 @@ export default class HomeScreen extends React.Component {
             case 'about': 
                 return (<AboutTab reportData={this.props.reportData} />)                
             default:
-                return (<SnackTab shoppingList={this.props.shoppingList} />)
+                return (<SnackTab 
+                    reportData={this.props.reportData}
+                    shoppingList={this.props.shoppingList} />)
         }
     }
 
     render() {
       return (
         <View style = { styles.MainContainer }>
+            <ScrollView style={styles.ScrollView}>
+                {this.renderTab()}            
+                <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
+            </ScrollView>
 
-        <ScrollView style={styles.ScrollView}>
-            {this.renderTab()}            
-            <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
-        </ScrollView>
-
-        <View style={styles.bottomView}>
-
-
-
-        {this.renderButtonNav(this.snacks,'My Snacks','md-barcode')}
-        {this.renderButtonNav(this.nutrition,'Nutrition','md-analytics')}
-        {this.renderButtonNav(this.about,'About','md-contact')}    
-        {this.renderButtonNav(this.logout,'Logout','md-close-circle')}
-        
-
-        </View>
+            <View style={styles.bottomView}>
+                {this.renderButtonNav(this.snacks,'My Snacks','md-barcode')}
+                {this.renderButtonNav(this.nutrition,'Nutrition','md-analytics')}
+                {this.renderButtonNav(this.about,'About','md-contact')}    
+                {this.renderButtonNav(this.logout,'Logout','md-close-circle')}
+            </View>
         </View>
       );
     }
   
   }
 
-
-const styles = StyleSheet.create(
-{
-    MainContainer:
-    {
-        flex: 1,
-        backgroundColor: '#ffffff',
-    },
-
-    ScrollView: 
-    {
-        paddingTop:50,
-        paddingLeft:30,
-        paddingRight:30,
-        paddingBottom:200
-    },
-
-    NavBox: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-
-    bottomView:{
-    
-        width: '100%', 
-        height: 70, 
-        backgroundColor: '#333333',
-        justifyContent: 'center', 
-        alignItems: 'center',
-        position: 'absolute',
-        bottom: 0,
-        flexDirection: 'row'
-    },
-    
-    textStyle:{
-    
-        color: '#fff',
-        fontSize:22
-    }
-});
