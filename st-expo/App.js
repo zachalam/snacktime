@@ -43,7 +43,10 @@ export default class App extends React.Component {
     // filter out all snacks not in this group.
     let shoppingList = snackList.filter(s => s.group === snackGroup)
     // randomly sort shopping list.
-    return shoppingList.sort();
+    shoppingList.sort();
+    console.log("sorted shopping list");
+    console.log(shoppingList);
+    return shoppingList;
   }
 
   render() {

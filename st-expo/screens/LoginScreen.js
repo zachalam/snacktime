@@ -53,8 +53,8 @@ export default class LoginScreen extends React.Component {
         // stop loading..
         this.setState({isLoading: false})
     }
-  };
-
+  }
+  
   render() {
 
     // show loading screen if authenticating...

@@ -6,12 +6,15 @@ function getTrait(reportData,theTrait) {
 
 export default function(report) {
     // milk/peanuts are 4 when allergy risk is higher
-    let hasMilkAllergy = Boolean(getTrait(report,'milk-allergy') === 4)
-    let hasPeanutAllergy = Boolean(getTrait(report,'peanuts-allergy') === 4)
+    let milkScore = getTrait(report,'milk-allergy')
+    let peanutScore = getTrait(report,'peanuts-allergy')
+    let mayHaveMilkAllergy = Boolean(milkScore >= 4)
+    let mayHavePeanutAllergy = Boolean(peanutScore >= 4)
     let carbohydrateIntake = getTrait(report,'carbohydrate-intake')
     let proteinIntake = getTrait(report,'protein-intake')
-    let snackGroup = getSnackGroup(carbohydrateIntake,proteinIntake)
-    let parsedReport = {hasMilkAllergy,hasPeanutAllergy,carbohydrateIntake,
-                        proteinIntake,snackGroup}
+    //let snackGroup = getSnackGroup(carbohydrateIntake,proteinIntake)
+    let snackGroup = "b"
+    let parsedReport = {mayHaveMilkAllergy,mayHavePeanutAllergy,carbohydrateIntake,
+                        proteinIntake,snackGroup,milkScore,peanutScore}
     return parsedReport;
 }

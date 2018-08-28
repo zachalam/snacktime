@@ -63,7 +63,7 @@ export default class HomeScreen extends React.Component {
     render() {
       return (
         <View style = { styles.MainContainer }>
-            <ScrollView style={styles.ScrollView}>
+            <ScrollView>
                 {this.renderTab()}            
                 <Text>{"\n"}{"\n"}{"\n"}{"\n"}{"\n"}</Text>
             </ScrollView>
@@ -71,7 +71,6 @@ export default class HomeScreen extends React.Component {
             <View style={styles.bottomView}>
                 {this.renderButtonNav(this.snacks,'My Snacks','food-apple')}
                 {this.renderButtonNav(this.nutrition,'Nutrition','nutrition')}
-                {this.renderButtonNav(this.about,'How It Works','account-card-details')}    
                 {this.renderButtonNav(this.logout,'Logout','layers-off')}
             </View>
         </View>

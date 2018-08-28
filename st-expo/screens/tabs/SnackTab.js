@@ -1,11 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Button,
-    ImageBackground, Alert, ScrollView } from 'react-native';
+    ImageBackground, Alert, Dimensions, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Progress from 'react-native-progress';
 import scores from '../../config/scores'
-
+import explainGroup from '../../helpers/explainGroup'
 import styles from '../../assets/css.js'
+
+import FadeIn from 'react-native-fade-in-image';
+
+const dimensions = Dimensions.get('window');
+const imageSize = dimensions.width;
+
 
 export default class SnackTab extends React.Component {
 
@@ -22,10 +28,12 @@ export default class SnackTab extends React.Component {
         this.setState({itemNumber: nextItemNumber})
     }
 
-    renderWhySnack() {
+    renderWhySnack(theSnack) {
         return (
             <Text>
-                snack!!!
+                {`\u2022`} This snack has {theSnack.carb}% carbohydrates by weight, and {theSnack.protein}% protein by weight.
+                {"\n"}
+                {`\u2022`} {explainGroup(theSnack.group)[2]}
             </Text>
         )
     }
@@ -38,36 +46,40 @@ export default class SnackTab extends React.Component {
 
         return (
             <View>
-                <Text style={styles.MiniHeader}>How about some?</Text>
-                <Text style={styles.Header}>{theName}{"\n"}</Text>
+                <View style={styles.GrayBg}>
+                    <Text style={styles.MiniHeader}>You might enjoy:</Text>
+                    <Text style={styles.Header}>{theName}{"\n"}</Text>
 
-                <Button
-                onPress={this.setNextItem}
-                title={`Try Another Snack (${itemNumber+1} of ${shoppingList.length})`}
-                color="#006aff"
-                accessibilityLabel="Load another snack."
-                />
+                    <Button
+                    onPress={this.setNextItem}
+                    title={`Next Snack (${itemNumber+1} of ${shoppingList.length})`}
+                    color="#006aff"
+                    accessibilityLabel="Load another snack."
+                    />
+                </View>
 
-                <Text>{"\n"}{"\n"}</Text>
-
+                <Text>{"\n"}</Text>
+                <FadeIn>
                 <Image
-                    style={{width: 250, height: 250}}
+                    style={{ height: imageSize, width: imageSize }}
                     source={{uri: e.img}}
                 />
-                <Text style={{fontWeight:'bold'}}>Why is this snack for me?</Text>
-                {this.renderWhySnack()}
-                <Text>{"\n"}</Text>
+                </FadeIn>
 
-                 <Button
-                onPress={(e) => { console.log("t")}}
-                title={`Buy on Amazon`}
-                color="#ff9500"
-                accessibilityLabel="Load amazon shopping."
-                />
+                <View style={styles.MainBg}>
+                    <Text style={styles.MiniHeader}>Why is this snack for me?</Text>
+                    {this.renderWhySnack(e)}
+                    <Text>{"\n"}</Text>
+
+                    <Button
+                    onPress={() => { Linking.openURL(e.url) }}
+                    title={`Buy on Amazon`}
+                    color="#ff9500"
+                    accessibilityLabel="Load amazon shopping."
+                    />
+                </View>
 
 
-
-                <Text>{"\n"}{"\n"}{"\n"}</Text>
             </View>
         )
 

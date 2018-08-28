@@ -8,12 +8,12 @@ const styles = StyleSheet.create(
         backgroundColor: '#ffffff',
     },
 
-    ScrollView: 
+    MainBg: 
     {
         paddingTop:50,
         paddingLeft:25,
         paddingRight:25,
-        paddingBottom:200
+        paddingBottom:35
     },
 
     NavBox: {
@@ -24,7 +24,12 @@ const styles = StyleSheet.create(
 
     GrayBg: {
         backgroundColor: '#eeeeee',
-        padding:25
+        borderBottomColor: '#dddddd',
+        borderBottomWidth: 2,
+        paddingTop:50,
+        paddingLeft:25,
+        paddingRight:25,
+        paddingBottom:35
     },
 
     bottomView:{
@@ -39,7 +44,6 @@ const styles = StyleSheet.create(
     },
     
     textStyle:{
-    
         color: '#fff',
         fontSize:22
     },
@@ -48,13 +52,17 @@ const styles = StyleSheet.create(
     {
         fontSize: 30,
         fontWeight: 'bold',
-        color:'#444444' 
+        color:'#444444',
     },
     MiniHeader: {
         fontSize: 20,
         fontWeight: 'bold',
-        color:'#888888'        
+        color:'#999999'        
     },
+
+
+    flexGrid: { display: 'flex'},
+    flexCol: { flex: 1, flexDirection: 'column', display: 'flex', alignItems: 'center', justifyContent: 'center'}
 });
 
 
